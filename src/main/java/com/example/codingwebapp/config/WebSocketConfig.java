@@ -23,7 +23,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("https://onlinecodingwebapp-client.onrender.com")
+                .setAllowedOrigins("https://onlinecodingwebapp-client.onrender.com:10000")
                 .withSockJS();
     }
 
@@ -36,7 +36,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 registry.addMapping("/ws/**")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
-                        .allowedOrigins("https://onlinecodingwebapp-client.onrender.com");
+                        .allowedOrigins("https://onlinecodingwebapp-client.onrender.com:10000");
             }
         };
     }
