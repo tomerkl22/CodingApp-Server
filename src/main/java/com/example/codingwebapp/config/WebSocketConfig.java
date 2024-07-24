@@ -23,22 +23,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("https://onlinecodingwebapp-client.onrender.com:10000")
+                .setAllowedOriginPatterns("*")
                 .withSockJS();
-    }
-
-    @Bean
-    WebMvcConfigurer corsConfig() {
-        return new WebMvcConfigurer() {
-
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/ws/**")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*")
-                        .allowedOrigins("https://onlinecodingwebapp-client.onrender.com:10000");
-            }
-        };
     }
 
 
