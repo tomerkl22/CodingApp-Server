@@ -45,7 +45,7 @@ public class CodeBlockController {
     }
 
 
-    @CrossOrigin(origins = "https://onlinecodingwebapp-client.onrender.com/")
+    @CrossOrigin(origins = "https://online-coding-web-app-client.vercel.app")
     @GetMapping("/codeblocks")
     @ResponseBody
     public ResponseEntity<List<CodeBlockDTO>> getCodeBlocks() {
