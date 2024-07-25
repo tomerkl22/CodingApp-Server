@@ -82,6 +82,7 @@ public class CodeBlockService {
     }
 
     public boolean checkSolution (String id, String title, String solutionCode){
+        // Todo: check if the code is compiling - not just equal
         Optional<CodeBlock> codeBlock = codeBlockRepository.findById(id);
         if (codeBlock.get().getSolution().equals(solutionCode)){
             return true;
