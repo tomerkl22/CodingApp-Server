@@ -6,8 +6,9 @@ import com.example.codingwebapp.model.CodeBlock;
 import com.example.codingwebapp.repository.CodeBlockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.Value;
 
 import java.util.HashMap;
 import java.util.List;
@@ -82,13 +83,23 @@ public class CodeBlockService {
     }
 
     public boolean checkSolution (String id, String title, String solutionCode){
-        // Todo: check if the code is compiling - not just equal
-        Optional<CodeBlock> codeBlock = codeBlockRepository.findById(id);
-        if (codeBlock.get().getSolution().equals(solutionCode)){
-            return true;
+        // Compiling the solution with js and compare to a storage solution
+        try (Context context = Context.create()) {
+            Value result = context.eval("js", solutionCode);
+            System.out.println(result.toString());
+
+            Optional<CodeBlock> codeBlock = codeBlockRepository.findById(id);
+            if (codeBlock.get().getSolution().equals(result.toString())){
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return false;
     }
+
 
     public void unAssignRole(String id){
         if (id.equals(mentorId)){
